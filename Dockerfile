@@ -1,11 +1,6 @@
-FROM buildpack-deps
+FROM ruby:2
 
-RUN apt-get update && apt-get install -y ruby ruby-dev nodejs
-
-# skip installing documentation
-RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
-
-RUN gem install bundler
+RUN apt-get update && apt-get install -y nodejs
 
 ADD . /usr/src/rails
 WORKDIR /usr/src/rails
@@ -25,9 +20,3 @@ RUN set -e; \
 	done
 
 RUN rake install
-
-ONBUILD ADD . /usr/src/app
-ONBUILD WORKDIR /usr/src/app
-ONBUILD RUN bundle install --system
-ONBUILD EXPOSE 3000
-ONBUILD CMD ["rails", "server"]
