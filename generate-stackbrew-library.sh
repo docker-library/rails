@@ -23,4 +23,5 @@ for va in "${versionAliases[@]}"; do
 done
 
 echo
+commit="$(git log -1 --format='format:%H' onbuild)"
 echo "onbuild: ${url}@${commit} onbuild"
