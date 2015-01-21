@@ -13,7 +13,7 @@ echo >> onbuild/Dockerfile
 grep '^RUN.*apt-get install' Dockerfile >> onbuild/Dockerfile
 echo >> onbuild/Dockerfile
 echo 'EXPOSE 3000' >> onbuild/Dockerfile
-echo 'CMD ["rails", "server"]' >> onbuild/Dockerfile
+echo 'CMD ["rails", "server", "-b", "0.0.0.0"]' >> onbuild/Dockerfile
 
 sed -ri '
 	s/^FROM .*/'"$(grep '^FROM' onbuild/Dockerfile | head -1)"'/;
