@@ -15,7 +15,9 @@ echo >> onbuild/Dockerfile
 echo 'EXPOSE 3000' >> onbuild/Dockerfile
 echo 'CMD ["rails", "server", "-b", "0.0.0.0"]' >> onbuild/Dockerfile
 
+sed -ri 's/^(FROM ruby):.*/\1:'"$rubyBase"'/' onbuild/Dockerfile
+
 sed -ri '
-	s/^FROM .*/'"$(grep '^FROM' onbuild/Dockerfile | head -1)"'/;
-	s/^(ENV RAILS_VERSION) .*/\1 '"$current"'/
+	s/^FROM .*/'"$(grep -m1 '^FROM' onbuild/Dockerfile)"'/;
+	s/^(ENV RAILS_VERSION) .*/\1 '"$current"'/;
 ' Dockerfile
