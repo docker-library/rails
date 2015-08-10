@@ -3,25 +3,18 @@ language: bash
 # for secret experimental features ;)
 sudo: 9000
 
-env:
-  - VERSION=3 VARIANT=
-  - VERSION=3 VARIANT=slim
-  - VERSION=2 VARIANT=
-  - VERSION=2 VARIANT=slim
-
 install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
 
 before_script:
   - env | sort
   - cd "$VERSION"
-  - image="$(awk '$1 == "FROM" { print $2; exit }' onbuild/Dockerfile)${VARIANT:+-$VARIANT}"
+  - image='rails'
 
 script:
-  - docker build -t "$image" "${VARIANT:-.}"
+  - docker build -t "$image" .
   - ~/official-images/test/run.sh "$image"
-# the "onbuild" variant has to happen with the base variant because it's FROM it
-  - true && [ "$VARIANT" ] || docker build -t "${image}-onbuild" onbuild
+  - docker build -t "$image:onbuild" onbuild
 
 after_script:
   - docker images
