@@ -3,6 +3,9 @@ FROM ruby:2.2
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
+# avoid warning about running Bundler as root
+RUN bundle config --global silence_root_warning 1
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
