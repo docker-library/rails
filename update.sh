@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-rubyBase='2.2'
+rubyBase='2.3'
 rubyOnbuildDockerfile="https://raw.githubusercontent.com/docker-library/ruby/master/$rubyBase/onbuild/Dockerfile"
 
 current="$(curl -sSL 'https://rubygems.org/api/v1/gems/rails.json' | sed -r 's/^.*"version":"([^"]+)".*$/\1/')"
