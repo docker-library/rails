@@ -6,7 +6,6 @@ install:
 
 before_script:
   - env | sort
-  - cd "$VERSION"
   - image='rails'
 
 script:
